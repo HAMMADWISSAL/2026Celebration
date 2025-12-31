@@ -3,167 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy New Year 2026!</title>
+    <title>SYSTEM COMPROMISED</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background: #0f172a;
-            color: white;
-            overflow-x: hidden;
+            font-family: 'Share Tech Mono', monospace;
+            background: #000000;
+            color: #00ff00;
+            overflow: hidden;
             margin: 0;
         }
 
-        .serif { font-family: 'Playfair Display', serif; }
+        .vt323 { font-family: 'VT323', monospace; }
 
-        /* Floating Animation for Cakes and Stuff */
-        .floating-item {
+        /* Matrix Rain Effect */
+        #matrix {
             position: fixed;
-            pointer-events: none;
-            z-index: 5;
-            font-size: 2rem;
-            animation: float-around linear infinite;
-            opacity: 0.6;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0.3;
         }
 
-        @keyframes float-around {
-            0% { transform: translateY(110vh) translateX(0) rotate(0deg); }
-            100% { transform: translateY(-10vh) translateX(50px) rotate(360deg); }
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            animation: glitch 1s infinite;
         }
 
-        .gold-gradient {
-            background: linear-gradient(to bottom right, #fef08a, #eab308, #fef08a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
         }
 
-        #canvas {
+        /* Typing Effect */
+        .typing {
+            overflow: hidden;
+            border-right: 3px solid #00ff00;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #00ff00; }
+        }
+
+        /* Scanline Effect */
+        .scanline {
             position: fixed;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 255, 0, 0) 50%,
+                rgba(0, 255, 0, 0.02) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 10;
             pointer-events: none;
-            z-index: 20;
+            animation: scanline 10s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        .red-text {
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .green-glow {
+            text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
+        }
+
+        .terminal-line {
+            margin: 0.5rem 0;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .skull {
+            font-size: 8rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .warning-box {
+            border: 2px solid #ff0000;
+            padding: 2rem;
+            background: rgba(255, 0, 0, 0.1);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            animation: warning-blink 1s infinite;
+        }
+
+        @keyframes warning-blink {
+            0%, 100% { border-color: #ff0000; }
+            50% { border-color: #ff6600; }
         }
     </style>
 </head>
 <body class="min-h-screen">
 
-    <canvas id="canvas"></canvas>
-
-    <div id="floating-elements"></div>
+    <canvas id="matrix"></canvas>
+    <div class="scanline"></div>
 
     <div class="relative z-10 flex flex-col items-center justify-center min-h-screen px-6">
-        
-        <header class="text-center max-w-4xl">
-            <div class="inline-block px-4 py-1 mb-6 border border-yellow-500/30 rounded-full bg-yellow-500/10 text-yellow-200 text-xs font-bold tracking-widest uppercase animate-bounce">
-                Welcome to 2026 🥂
-            </div>
-            <h1 class="serif text-6xl md:text-9xl font-black mb-8 gold-gradient">
-                Happy Hack by Mok <br> 2026
-            </h1>
-            <p class="text-xl md:text-2xl font-light text-indigo-100/80 leading-relaxed max-w-2xl mx-auto mb-12">
-                Time for a new chapter and learn some Hack things! Let's fill it with joy, growth, and plenty of cake. 
-            </p>
-        </header>
 
-        <footer class="absolute bottom-10 text-white/30 text-xs uppercase tracking-widest">
-            Made with love by Wissal Lkharya 🎆
+        <div class="text-center max-w-4xl">
+            <div class="skull mb-8">☠️</div>
+
+            <div class="warning-box mb-8">
+                <h1 class="vt323 text-5xl md:text-7xl font-black mb-4 red-text glitch">
+                    ACCESS DENIED
+                </h1>
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 green-glow">
+                    SYSTEM COMPROMISED
+                </h2>
+            </div>
+
+            <div class="text-left max-w-2xl mx-auto mb-8 space-y-2">
+                <div class="terminal-line" style="animation-delay: 0s;">> Initiating connection...</div>
+                <div class="terminal-line" style="animation-delay: 0.5s;">> Bypassing firewall... <span class="red-text">[SUCCESS]</span></div>
+                <div class="terminal-line" style="animation-delay: 1s;">> Extracting data... <span class="red-text">[100%]</span></div>
+                <div class="terminal-line" style="animation-delay: 1.5s;">> Root access obtained... <span class="red-text">[COMPLETE]</span></div>
+                <div class="terminal-line" style="animation-delay: 2s;">> Happy 2026 has been <span class="red-text">HIJACKED</span> 👾</div>
+                <div class="terminal-line" style="animation-delay: 2.5s;">> <span class="green-glow">This page is now under new management...</span></div>
+            </div>
+
+            <div class="text-xl md:text-2xl font-light mb-8 typing" style="animation-delay: 3s;">
+                YOU'VE BEEN PRANKED! 😈
+            </div>
+
+            <div class="text-sm opacity-60 mt-12">
+                <p>Just kidding! This is a harmless prank 😄</p>
+                <p class="mt-2">Your celebration page has been temporarily "hacked"</p>
+                <p class="mt-4 text-xs">Press F5 to refresh and see the original (just kidding, this IS the page now)</p>
+            </div>
+        </div>
+
+        <footer class="absolute bottom-10 text-green-500/50 text-xs uppercase tracking-widest">
+            [ HACKED BY: YOUR FRIENDLY NEIGHBORHOOD PRANKSTER ] 👽
         </footer>
     </div>
 
     <script>
-        // 1. Generate Floating Items (Cakes, Drinks, Poppers)
-        const floatingContainer = document.getElementById('floating-elements');
-        const items = ['🎂', '🥂', '🎉', '🧁', '🎈', '🍾'];
-        
-        for (let i = 0; i < 15; i++) {
-            const div = document.createElement('div');
-            div.className = 'floating-item';
-            div.innerText = items[Math.floor(Math.random() * items.length)];
-            div.style.left = Math.random() * 100 + 'vw';
-            div.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            div.style.animationDelay = (Math.random() * 5) + 's';
-            floatingContainer.appendChild(div);
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.random() * canvas.height / fontSize;
         }
 
-        // 2. Fireworks/Confetti Engine
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        function resize() {
+            ctx.fillStyle = '#00ff00';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrix[Math.floor(Math.random() * matrix.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 50);
+
+        window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
+        });
 
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.velocity = {
-                    x: (Math.random() - 0.5) * 10,
-                    y: (Math.random() - 0.5) * 10
-                };
-                this.alpha = 1;
-                this.size = Math.random() * 3 + 1;
-            }
-            draw() {
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
-                ctx.fillRect(this.x, this.y, this.size * 2, this.size * 2); // Square confetti
-            }
-            update() {
-                this.velocity.y += 0.1; // gravity
-                this.x += this.velocity.x;
-                this.y += this.velocity.y;
-                this.alpha -= 0.01;
-            }
+        // Random screen shake
+        function shake() {
+            document.body.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+            setTimeout(() => {
+                document.body.style.transform = 'translate(0, 0)';
+            }, 50);
         }
 
-        function popConfetti(x = window.innerWidth/2, y = window.innerHeight/2) {
-            const colors = ['#fbbf24', '#f472b6', '#60a5fa', '#34d399', '#ffffff'];
-            for (let i = 0; i < 50; i++) {
-                particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
-            }
-        }
+        setInterval(() => {
+            if (Math.random() > 0.95) shake();
+        }, 2000);
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, i) => {
-                if (p.alpha > 0) {
-                    p.update();
-                    p.draw();
-                } else {
-                    particles.splice(i, 1);
-                }
-            });
-            requestAnimationFrame(animate);
-        }
-
-        window.addEventListener('mousedown', (e) => popConfetti(e.clientX, e.clientY));
-        
-        // Auto-pop confetti at random locations continuously
-        function autoPopConfetti() {
-            const x = Math.random() * window.innerWidth;
-            const y = Math.random() * window.innerHeight;
-            popConfetti(x, y);
-        }
-        
-        // Pop confetti every 800ms
-        setInterval(autoPopConfetti, 800);
-        
-        // Initial burst on load
-        setTimeout(() => {
-            popConfetti();
-            popConfetti(window.innerWidth * 0.25, window.innerHeight * 0.3);
-            popConfetti(window.innerWidth * 0.75, window.innerHeight * 0.3);
-        }, 500);
-        
-        animate();
+        // Alert sound effect (optional - commented out to not be annoying)
+        // setTimeout(() => alert("⚠️ WARNING: Just kidding! Happy 2026! 🎉"), 5000);
     </script>
 </body>
-
 </html>
