@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year 2026!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            color: white;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        .serif { font-family: 'Playfair Display', serif; }
+
+        /* Floating Animation for Cakes and Stuff */
+        .floating-item {
+            position: fixed;
+            pointer-events: none;
+            z-index: 5;
+            font-size: 2rem;
+            animation: float-around linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float-around {
+            0% { transform: translateY(110vh) translateX(0) rotate(0deg); }
+            100% { transform: translateY(-10vh) translateX(50px) rotate(360deg); }
+        }
+
+        .gold-gradient {
+            background: linear-gradient(to bottom right, #fef08a, #eab308, #fef08a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #canvas {
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <canvas id="canvas"></canvas>
+
+    <div id="floating-elements"></div>
+
+    <div class="relative z-10 flex flex-col items-center justify-center min-h-screen px-6">
+        
+        <header class="text-center max-w-4xl">
+            <div class="inline-block px-4 py-1 mb-6 border border-yellow-500/30 rounded-full bg-yellow-500/10 text-yellow-200 text-xs font-bold tracking-widest uppercase animate-bounce">
+                Welcome to 2026 🥂
+            </div>
+            <h1 class="serif text-6xl md:text-9xl font-black mb-8 gold-gradient">
+                Happy <br> 2026
+            </h1>
+            <p class="text-xl md:text-2xl font-light text-indigo-100/80 leading-relaxed max-w-2xl mx-auto mb-12">
+                Time for a new chapter! Let's fill it with joy, growth, and plenty of cake.
+            </p>
+        </header>
+
+        <footer class="absolute bottom-10 text-white/30 text-xs uppercase tracking-widest">
+            Made with love by Wissal 🎆
+        </footer>
+    </div>
+
+    <script>
+        // 1. Generate Floating Items (Cakes, Drinks, Poppers)
+        const floatingContainer = document.getElementById('floating-elements');
+        const items = ['🎂', '🥂', '🎉', '🧁', '🎈', '🍾'];
+        
+        for (let i = 0; i < 15; i++) {
+            const div = document.createElement('div');
+            div.className = 'floating-item';
+            div.innerText = items[Math.floor(Math.random() * items.length)];
+            div.style.left = Math.random() * 100 + 'vw';
+            div.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            div.style.animationDelay = (Math.random() * 5) + 's';
+            floatingContainer.appendChild(div);
+        }
+
+        // 2. Fireworks/Confetti Engine
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 10,
+                    y: (Math.random() - 0.5) * 10
+                };
+                this.alpha = 1;
+                this.size = Math.random() * 3 + 1;
+            }
+            draw() {
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.size * 2, this.size * 2); // Square confetti
+            }
+            update() {
+                this.velocity.y += 0.1; // gravity
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= 0.01;
+            }
+        }
+
+        function popConfetti(x = window.innerWidth/2, y = window.innerHeight/2) {
+            const colors = ['#fbbf24', '#f472b6', '#60a5fa', '#34d399', '#ffffff'];
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                if (p.alpha > 0) {
+                    p.update();
+                    p.draw();
+                } else {
+                    particles.splice(i, 1);
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('mousedown', (e) => popConfetti(e.clientX, e.clientY));
+        
+        // Auto-pop confetti at random locations continuously
+        function autoPopConfetti() {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            popConfetti(x, y);
+        }
+        
+        // Pop confetti every 800ms
+        setInterval(autoPopConfetti, 800);
+        
+        // Initial burst on load
+        setTimeout(() => {
+            popConfetti();
+            popConfetti(window.innerWidth * 0.25, window.innerHeight * 0.3);
+            popConfetti(window.innerWidth * 0.75, window.innerHeight * 0.3);
+        }, 500);
+        
+        animate();
+    </script>
+</body>
+</html>
